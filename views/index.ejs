@@ -12,5 +12,11 @@
 		<input type="text" name="player[number]"><br><br>
 		<button>save</button>
 	</form>
+
+	<ul>
+		<% for( var i = 0; i < players.length; i++){ %>
+			<li><a href="/player/<%= players[i]._id %>"><%= players[i].number %>: <%= players[i].name %></a></li>
+		<% } %>
+	</ul>
 </body>
 </html>
