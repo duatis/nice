@@ -4,7 +4,7 @@ module.exports = function(mongoose)
 
 	Player = mongoose.model('Player', new Schema({
 		name: String
-	  , number: String
+	  , number: Number
 	}));
 
 	return Player;
