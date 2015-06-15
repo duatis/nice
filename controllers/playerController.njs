@@ -4,5 +4,15 @@ module.exports = function(Player){
 		Player.findOne( {_id: object_id}, fn );
 	}
 
+	this.index = function(fn)
+	{
+		Player.find(fn);
+	}
+
+	this.save = function( data, fn )
+	{
+		new Player(data).save(fn);
+	}
+
 	return this;
 }

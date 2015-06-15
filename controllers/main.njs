@@ -1,3 +1,4 @@
-var models = require('../models'), playerController = require('./playerController.njs')(models.Player);
+var models = require('../models'), 
+	playersController = require('./playerController.njs')(models.Player);
 
-module.exports.playerController = playerController; 
+module.exports.playersController = playersController; 

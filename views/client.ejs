@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+	<script>
+		$(
+			function()
+			{
+				var socket = io.connect('ws://192.168.33.10:3000/');
+
+				socket.on('first_data', function(data){
+					$('#data ul').html('');
+					for( var i in data )
+					{	
+						$('#data ul').append($('<li>').append(data[i].number + ' ' + data[i].name ));
+					}
+				})
+
+				socket.on('newplayer', function(data){
+					console.log('new');
+					$('#data ul').append($('<li>').append(data.number + ' ' + data.name ));
+
+				});
+
+				socket.on('in', function(){
+					alert('in');
+
+				});
+			}
+		);
+	</script>
+</head>
+<body>
+	<div id="data">
+		<h1>Players</h1>
+		<ul></ul>
+	</div>
+</body>
+</html>
