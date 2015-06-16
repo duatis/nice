@@ -1,3 +1,4 @@
+console.log('\x1b[31mStarting app\x1b[39m');
 var controllers = require('./controllers'),
 	express = require('express'),
 	sio     = require('socket.io'),
@@ -16,6 +17,7 @@ var controllers = require('./controllers'),
 	server.listen(3000);
 	io = sio.listen( server );
 
+console.log('\x1b[93mCreating routes\x1b[39m');
 app.get('/', function( req, res, next){
 
 	playersController.index(function(error, players ) 
@@ -44,7 +46,7 @@ app.get('/client', function(req, res, next){
 	res.render('client');
 });
 
-
+console.log('\x1b[93mCreating socket\x1b[39m');
 io.sockets.on( 'connection', function( socket ){
     playersController.index(function(error, players){
     	socket.emit('first_data', players );	
@@ -56,3 +58,6 @@ process.stdin.on( 'data', function( data ){
     io.sockets.emit('in', data.toString() );
 
 });
+
+console.log('\x1b[32mApp started\x1b[39m');
+
