@@ -4,7 +4,6 @@ module.exports = function(mongoose, Player)
 
 	Team = mongoose.model('Team', new Schema({
 		name: String,
-	   	number: Number,
 		players: [Player]
 	}));
 

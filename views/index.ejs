@@ -5,6 +5,7 @@
 	<title></title>
 </head>
 <body>
+	<h2>Player</h2>
 	<form action="/player" method="POST">
 		Name <br>
 		<input type="text" name="player[name]"><br><br>
@@ -12,10 +13,22 @@
 		<input type="text" name="player[number]"><br><br>
 		<button>save</button>
 	</form>
-
+	
 	<ul>
 		<% for( var i = 0; i < players.length; i++){ %>
 			<li><a href="/player/<%= players[i]._id %>"><%= players[i].number %>: <%= players[i].name %></a></li>
+		<% } %>
+	</ul>
+
+	<h2>Team</h2>
+	<form action="/team" method="POST">
+		Name <br>
+		<input type="text" name="team[name]"><br><br>
+		<button>save</button>
+	</form>
+	<ul>
+		<% for( var i = 0; i < teams.length; i++){ %>
+			<li><a href="/team/<%= teams[i]._id %>"><%= teams[i].name %></a></li>
 		<% } %>
 	</ul>
 </body>
