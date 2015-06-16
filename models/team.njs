@@ -1,11 +1,18 @@
-module.exports = function(mongoose, Player)
+module.exports = function(mongoose)
 {
-	var Schema = mongoose.Schema,
+	var Schema = mongoose.Schema;
 
-	Team = mongoose.model('Team', new Schema({
+	schema = new Schema({
 		name: String,
-		players: [Player]
-	}));
+		players: []
+	});
+
+	schema.methods.addPlayer = function( player_id, fn){
+			this.players.push(player_id);
+			this.save(fn);
+	}
+
+	Team = mongoose.model('Team', schema);
 
 	return Team;
 }

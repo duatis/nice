@@ -59,6 +59,12 @@ app.get('/team/:object_id', function(req, res, next){
 	);
 });
 
+app.post('/team/:object_id/player', function( req, res, next ){
+	teamsController.addPlayer(req.params.object_id, req.body.player, function( err, team){
+		res.render('team', team );
+	});
+});
+
 app.get('/client', function(req, res, next){
 	res.render('client');
 });

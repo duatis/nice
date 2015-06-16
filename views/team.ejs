@@ -8,5 +8,9 @@
 	<%= name %> <br>
 	<br>
 	<a href="/">back</a>
+	<form action='/team/<%= _id %>/player' method='POST'>
+		<input type="text" name="player" />
+		<button>save<button>
+	</form>
 </body>
 </html>

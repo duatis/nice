@@ -15,5 +15,12 @@ module.exports = function(Team){
 		new Team(data).save(fn);
 	}
 
+	self.addPlayer = function( team_id,player_id, fn )
+	{
+		Team.findOne({_id: team_id}, function( err, team){
+			team.addPlayer(player_id, fn);
+		});
+	}
+
 	return self;
 }
