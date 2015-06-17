@@ -5,12 +5,17 @@
 	<title>Team</title>
 </head>
 <body>
-	<%= name %> <br>
+	<%= team.name %> <br>
 	<br>
+	<ul>
+		<% for( var i = 0; i < players.length; i++){ %>
+			<li><a href="/player/<%= players[i]._id %>"><%= players[i].number %>: <%= players[i].name %></a></li>
+		<% } %>
+	</ul>
 	<a href="/">back</a>
-	<form action='/team/<%= _id %>/player' method='POST'>
+	<form action='/team/<%= team._id %>/player' method='POST'>
 		<input type="text" name="player" />
-		<button>save<button>
+		<button>save</button>
 	</form>
 </body>
 </html>

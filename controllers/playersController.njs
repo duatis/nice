@@ -1,5 +1,6 @@
 module.exports = function(Player){
 	var self = {};
+	self.Player = Player;
 	self.find = function( object_id, fn )
 	{
 		Player.findOne( {_id: object_id}, fn );

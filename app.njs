@@ -48,13 +48,16 @@ app.get('/player/:object_id', function(req, res, next){
 
 app.post('/team', function(req, res, next){
 	teamsController.save(req.body.team, function(error, team){
-		res.render('team', team );
+		res.render('team',  {team:team, players: []}  );
 	});
 });
 
 app.get('/team/:object_id', function(req, res, next){
 		teamsController.find( req.params.object_id,function(error, team){
-			res.render('team', team );
+			playersController.Player.find({_id: {'$in': team.players }}, function( err, players ) {
+				if( err ) players = [];
+				res.render('team', {team:team, players: players} );
+			});
 		} 
 	);
 });
