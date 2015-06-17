@@ -22,8 +22,7 @@ io = sio.listen( server );
 console.log('\x1b[93mCreating routes\x1b[39m');
 app.get('/', function( req, res, next)
 {
-	playersController.index(function(error, players ) 
-	{
+	playersController.index(function(error, players ){
 		teamsController.index( function(error, teams){
     		res.render( 'index', { players: players, teams: teams } );
 		}
@@ -54,9 +53,9 @@ app.post('/team', function(req, res, next){
 
 app.get('/team/:object_id', function(req, res, next){
 		teamsController.find( req.params.object_id,function(err, team_data){
-			playersController.index( function( err, players)
-			{
-				team_data.all_players = players;
+			playersController.index( {_id: { $not: {$in: team_data.team.players}}},function( err, players_left){
+				team_data.all_players = players_left;
+				console.log( team_data.all_players );
 				res.render('team', team_data);
 			});
 		} 
@@ -75,7 +74,7 @@ app.get('/client', function(req, res, next){
 
 console.log('\x1b[92mCreating socket\x1b[39m');
 io.sockets.on( 'connection', function( socket ){
-    playersController.index(function(error, players){
+    playersController.index( {}, function(error, players){
     	socket.emit('first_data', players );	
     });
     
@@ -86,5 +85,4 @@ process.stdin.on( 'data', function( data ){
 
 });
 
-console.log('\x1b[32mApp started\x1b[39m');
-
+console.log('\x1b[32mApp started\x1b[39m\u0007\u0007\u0007');
