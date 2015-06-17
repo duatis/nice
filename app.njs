@@ -20,8 +20,8 @@ server.listen(3000);
 io = sio.listen( server );
 
 console.log('\x1b[93mCreating routes\x1b[39m');
-app.get('/', function( req, res, next){
-
+app.get('/', function( req, res, next)
+{
 	playersController.index(function(error, players ) 
 	{
 		teamsController.index( function(error, teams){
@@ -53,10 +53,11 @@ app.post('/team', function(req, res, next){
 });
 
 app.get('/team/:object_id', function(req, res, next){
-		teamsController.find( req.params.object_id,function(error, team){
-			playersController.Player.find({_id: {'$in': team.players }}, function( err, players ) {
-				if( err ) players = [];
-				res.render('team', {team:team, players: players} );
+		teamsController.find( req.params.object_id,function(err, team_data){
+			playersController.index( function( err, players)
+			{
+				team_data.all_players = players;
+				res.render('team', team_data);
 			});
 		} 
 	);
@@ -64,7 +65,7 @@ app.get('/team/:object_id', function(req, res, next){
 
 app.post('/team/:object_id/player', function( req, res, next ){
 	teamsController.addPlayer(req.params.object_id, req.body.player, function( err, team){
-		res.render('team', team );
+		res.redirect('/team/' + team._id );
 	});
 });
 

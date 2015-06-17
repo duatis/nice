@@ -1,8 +1,14 @@
-module.exports = function(Team){
+module.exports = function(Team, Player){
 	var self = {};
 	self.find = function( object_id, fn )
 	{
-		Team.findOne( {_id: object_id}, fn );
+		Team.findOne( {_id: object_id}, function(err, team){
+			Player.find({_id:{$in: team.players}}, function(err, players){
+					if(err)players = [];
+					fn(err, {team: team, players: players})
+				}
+			);
+		} );
 	}
 
 	self.index = function(fn)

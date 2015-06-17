@@ -14,7 +14,11 @@
 	</ul>
 	<a href="/">back</a>
 	<form action='/team/<%= team._id %>/player' method='POST'>
-		<input type="text" name="player" />
+		<select name="player" id="">
+		<% for( var i = 0; i < all_players.length; i++){ %>
+			<option value="<%= all_players[i]._id %>"><%= all_players[i].number %>: <%= all_players[i].name %></option>
+		<% } %>
+		</select>
 		<button>save</button>
 	</form>
 </body>

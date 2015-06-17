@@ -8,7 +8,7 @@ module.exports = function(Player){
 
 	self.index = function(fn)
 	{
-		Player.find(fn);
+		Player.find().sort({number: 1}).exec(fn);
 	}
 
 	self.save = function( data, fn )
