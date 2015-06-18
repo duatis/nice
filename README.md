@@ -31,7 +31,8 @@ The diferent accessible routes can be seen at app.njs file
 
 ##TODO
 1. Split server creation, routing and socket managment into diferent modules
-2. Create controllers and models for Match and Action
-3. Test TCP stream using socket.io outside the server
-4. API key and authentication for clients
-5. Balance server
+2. Refactor models and controller to follow inheritance pattern
+3. Create controllers and models for Game Actions
+4. Test TCP stream using socket.io outside the server
+5. API key and authentication for clients
+6. Balance server
