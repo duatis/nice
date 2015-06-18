@@ -6,14 +6,13 @@ module.exports = function(Team, Player){
 			Player.find({_id:{$in: team.players}}, function(err, players){
 					if(err)players = [];
 					fn(err, {team: team, players: players})
-				}
-			);
-		} );
+			});
+		});
 	}
 
-	self.index = function(fn)
+	self.index = function(params, fn)
 	{
-		Team.find(fn);
+		Team.find(params,fn);
 	}
 
 	self.save = function( data, fn )

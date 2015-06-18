@@ -31,5 +31,20 @@
 			<li><a href="/team/<%= teams[i]._id %>"><%= teams[i].name %></a></li>
 		<% } %>
 	</ul>
+
+	<h2>Game</h2>
+	<form action="/game" method="POST">
+		Name <br>
+		<input type="text" name="game[name]"><br><br>
+		Date<br>
+		<input type="text" name="game[date]" placeholder="YYYY-MM-DD"><br><br>
+
+		<button>save</button>
+	</form>
+	<ul>
+		<% for( var i = 0; i < games.length; i++){ %>
+			<li><a href="/game/<%= games[i]._id %>"><%= games[i].name %> <%= games[i].date %></a></li>
+		<% } %>
+	</ul>
 </body>
 </html>

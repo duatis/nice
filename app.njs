@@ -24,11 +24,11 @@ app.get('/', function( req, res, next)
 {
 	playersController.index(function(error, players ){
 		teamsController.index( function(error, teams){
-    		res.render( 'index', { players: players, teams: teams } );
-		}
-    	);
-	} 
-	);
+			gamesController.index(function(error, games){
+    			res.render( 'index', { players: players, teams: teams, games: games });
+    		});
+		});
+	});
 });
 
 app.post('/player', function(req, res, next){
@@ -47,7 +47,7 @@ app.get('/player/:object_id', function(req, res, next){
 
 app.post('/team', function(req, res, next){
 	teamsController.save(req.body.team, function(error, team){
-		res.render('team',  {team:team, players: []}  );
+		res.redirect('/team/' + team._id );
 	});
 });
 
@@ -55,8 +55,23 @@ app.get('/team/:object_id', function(req, res, next){
 		teamsController.find( req.params.object_id,function(err, team_data){
 			playersController.index( {_id: { $not: {$in: team_data.team.players}}},function( err, players_left){
 				team_data.all_players = players_left;
-				console.log( team_data.all_players );
 				res.render('team', team_data);
+			});
+		} 
+	);
+});
+
+app.post('/game', function(req, res, next){
+	gamesController.save(req.body.game, function(error, game){
+		res.render('game',  { game:game }  );
+	});
+});
+
+app.get('/game/:object_id', function(req, res, next){
+		gamesController.find( req.params.object_id,function(err, game_data){
+			teamsController.index( {_id: { $not: {$in: game_data.game.teams}}},function( err, teams_left){
+				game_data.all_teams = teams_left;
+				res.render('game', game_data);
 			});
 		} 
 	);

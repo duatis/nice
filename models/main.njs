@@ -3,11 +3,13 @@ var mongoose 	= require('mongoose'), Models = {}, Player, Team;
 	mongoose.connect('mongodb://127.0.0.1/nice');
 	console.log('\x1b[33mLoading Models\x1b[39m');
 	Player	= require('./player.njs')(mongoose);
-	Team	= require('./team.njs')(mongoose, Player);
+	Team	= require('./team.njs')(mongoose);
+	Game	= require('./game.njs')(mongoose);
 	
 var	Models = { 
-			"Player": Player,
-			"Team": 	Team
+			Player: Player,
+			Team: 	Team,
+			Game: 	Game
 		};
 
 	module.exports = Models;
