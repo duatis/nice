@@ -29,6 +29,11 @@ module.exports = function(mongoose)
 		actions: [Actions]
 	});
 
+	 schema.methods.addTeam = function( team_id, fn){
+			this.teams.push( mongoose.Types.ObjectId(team_id) );
+			this.save(fn);
+	}
+
 	 /**
 	 * @var creates the mongoose model that is the object of the class
 	 */

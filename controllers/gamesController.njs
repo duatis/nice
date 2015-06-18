@@ -17,9 +17,11 @@ module.exports = function(Game, Team){
 	self.find = function( object_id, fn )
 	{
 		Game.findOne( {_id: object_id}, function(err, game){
-			console.log(game.teams);
 			Team.find({_id:{$in: game.teams}}, function(err, teams){
-					if(err)teams = [];
+					console.log(teams);
+					if(err){
+						teams = [];
+					}
 					fn(err, {game: game, teams: teams})
 			});
 		});
@@ -48,6 +50,14 @@ module.exports = function(Game, Team){
 	self.save = function( data, fn )
 	{
 		new Game(data).save(fn);
+	}
+
+
+	self.addTeam = function( game_id, team_id, fn )
+	{
+		Game.findOne({_id: game_id}, function( err, game){
+			game.addTeam(team_id, fn);
+		});
 	}
 
 	return self;

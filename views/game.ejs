@@ -9,11 +9,11 @@
 	<br>
 	<ul>
 		<% for( var i = 0; i < teams.length; i++){ %>
-			<li><a href="/game/<%= game[i]._id %>"><%= teams[i].name %></a></li>
+			<li><a href="/team/<%= teams[i]._id %>"><%= teams[i].name %></a></li>
 		<% } %>
 	</ul>
 	<a href="/">back</a>
-	<form action='/game/<%= game._id %>/game' method='POST'>
+	<form action='/game/<%= game._id %>/team' method='POST'>
 		<select name="player" id="">
 		<% for( var i = 0; i < all_teams.length; i++){ %>
 			<option value="<%= all_teams[i]._id %>"><%= all_teams[i].name %></option>
