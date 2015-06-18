@@ -71,7 +71,6 @@ app.get('/game/:object_id', function(req, res, next){
 		gamesController.find( req.params.object_id,function(err, game_data){
 			teamsController.index( {_id: { $not: {$in: game_data.game.teams}}},function( err, teams_left){
 				game_data.all_teams = teams_left;
-				console.log(game_data.teams);
 				res.render('game', game_data);
 			});
 		} 

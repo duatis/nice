@@ -14,7 +14,7 @@
 	</ul>
 	<a href="/">back</a>
 	<form action='/game/<%= game._id %>/team' method='POST'>
-		<select name="player" id="">
+		<select name="team" id="">
 		<% for( var i = 0; i < all_teams.length; i++){ %>
 			<option value="<%= all_teams[i]._id %>"><%= all_teams[i].name %></option>
 		<% } %>

@@ -20,9 +20,7 @@
 				})
 
 				socket.on('newplayer', function(data){
-					console.log('new');
 					$('#data ul').append($('<li>').append(data.number + ' ' + data.name ));
-
 				});
 
 				socket.on('in', function(){

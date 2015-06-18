@@ -18,7 +18,6 @@ module.exports = function(Game, Team){
 	{
 		Game.findOne( {_id: object_id}, function(err, game){
 			Team.find({_id:{$in: game.teams}}, function(err, teams){
-					console.log(teams);
 					if(err){
 						teams = [];
 					}
