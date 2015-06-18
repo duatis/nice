@@ -3,48 +3,51 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/css/gumby.min.css">
 </head>
-<body>
-	<h2>Player</h2>
-	<form action="/player" method="POST">
-		Name <br>
-		<input type="text" name="player[name]"><br><br>
-		Number <br>
-		<input type="text" name="player[number]"><br><br>
-		<button>save</button>
-	</form>
+<body class="row">
+	<div class="field">
+		<h2>Player</h2>
+		<form action="/player" method="POST">
+			Name <br>
+			<input class="input" type="text" name="player[name]"><br><br>
+			Number <br>
+			<input class="input" type="text" name="player[number]"><br><br>
+			<div class="small metro rounded primary btn"><button >save</button></div>
+		</form>
+		
+		<ul>
+			<% for( var i = 0; i < players.length; i++){ %>
+				<li><a href="/player/<%= players[i]._id %>"><%= players[i].number %>: <%= players[i].name %></a></li>
+			<% } %>
+		</ul>
 	
-	<ul>
-		<% for( var i = 0; i < players.length; i++){ %>
-			<li><a href="/player/<%= players[i]._id %>"><%= players[i].number %>: <%= players[i].name %></a></li>
-		<% } %>
-	</ul>
-
-	<h2>Team</h2>
-	<form action="/team" method="POST">
-		Name <br>
-		<input type="text" name="team[name]"><br><br>
-		<button>save</button>
-	</form>
-	<ul>
-		<% for( var i = 0; i < teams.length; i++){ %>
-			<li><a href="/team/<%= teams[i]._id %>"><%= teams[i].name %></a></li>
-		<% } %>
-	</ul>
-
-	<h2>Game</h2>
-	<form action="/game" method="POST">
-		Name <br>
-		<input type="text" name="game[name]"><br><br>
-		Date<br>
-		<input type="text" name="game[date]" placeholder="YYYY-MM-DD"><br><br>
-
-		<button>save</button>
-	</form>
-	<ul>
-		<% for( var i = 0; i < games.length; i++){ %>
-			<li><a href="/game/<%= games[i]._id %>"><%= games[i].name %> <%= games[i].date %></a></li>
-		<% } %>
-	</ul>
+		<h2>Team</h2>
+		<form action="/team" method="POST">
+			Name <br>
+			<input class="input" type="text" name="team[name]"><br><br>
+			<div class="medium metro rounded primary btn"><button >save</button></div>
+		</form>
+		<ul>
+			<% for( var i = 0; i < teams.length; i++){ %>
+				<li><a href="/team/<%= teams[i]._id %>"><%= teams[i].name %></a></li>
+			<% } %>
+		</ul>
+	
+		<h2>Game</h2>
+		<form action="/game" method="POST">
+			Name <br>
+			<input class="input" type="text" name="game[name]"><br><br>
+			Date<br>
+			<input class="input" type="text" name="game[date]" placeholder="YYYY-MM-DD"><br><br>
+	
+			<div class="medium metro rounded primary btn"><button >save</button></div>
+		</form>
+		<ul>
+			<% for( var i = 0; i < games.length; i++){ %>
+				<li><a href="/game/<%= games[i]._id %>"><%= games[i].name %> <%= games[i].date %></a></li>
+			<% } %>
+		</ul>
+	</div>
 </body>
 </html>

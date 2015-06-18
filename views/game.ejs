@@ -2,24 +2,28 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>game</title>
+	<title>Game</title>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/css/gumby.min.css">
 </head>
-<body>
-	<%= game.name %> <br>
-	<br>
+<body class="row">
+	<h1><%= game.name %></h1>
 	<ul>
 		<% for( var i = 0; i < teams.length; i++){ %>
 			<li><a href="/team/<%= teams[i]._id %>"><%= teams[i].name %></a></li>
 		<% } %>
 	</ul>
-	<a href="/">back</a>
+	
 	<form action='/game/<%= game._id %>/team' method='POST'>
-		<select name="team" id="">
-		<% for( var i = 0; i < all_teams.length; i++){ %>
-			<option value="<%= all_teams[i]._id %>"><%= all_teams[i].name %></option>
-		<% } %>
-		</select>
-		<button>save</button>
+		<div class="picker">
+			<select name="team" id="">
+				<option value="#" disabled>Add team</option>
+			<% for( var i = 0; i < all_teams.length; i++){ %>
+				<option value="<%= all_teams[i]._id %>"><%= all_teams[i].name %></option>
+			<% } %>
+			</select>
+		</div>
+		<div class="medium metro rounded primary btn"><button >add</button></div>
 	</form>
+	<div class="small default btn icon-right entypo icon-home"><a href="/"> Home</a></div>
 </body>
 </html>

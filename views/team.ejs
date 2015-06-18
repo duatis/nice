@@ -3,23 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Team</title>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/css/gumby.min.css">
 </head>
-<body>
-	<%= team.name %> <br>
-	<br>
+<body class="row">
+	<h1><%= team.name %></h1>
 	<ul>
 		<% for( var i = 0; i < players.length; i++){ %>
 			<li><a href="/player/<%= players[i]._id %>"><%= players[i].number %>: <%= players[i].name %></a></li>
 		<% } %>
 	</ul>
-	<a href="/">back</a>
+		
 	<form action='/team/<%= team._id %>/player' method='POST'>
-		<select name="player" id="">
-		<% for( var i = 0; i < all_players.length; i++){ %>
-			<option value="<%= all_players[i]._id %>"><%= all_players[i].number %>: <%= all_players[i].name %></option>
-		<% } %>
-		</select>
-		<button>save</button>
+		<div class="picker">
+			<select name="player" id="">
+				<option value="#" disabled>Add player</option>
+			<% for( var i = 0; i < all_players.length; i++){ %>
+				<option value="<%= all_players[i]._id %>"><%= all_players[i].number %>: <%= all_players[i].name %></option>
+			<% } %>
+			</select>
+		</div>
+		<div class="medium metro rounded primary btn"><button >add</button></div>
 	</form>
+	<div class="small default btn icon-right entypo icon-home"><a href="/"> Home</a></div>
 </body>
 </html>
