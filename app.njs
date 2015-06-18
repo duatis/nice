@@ -6,6 +6,7 @@ sio     = require('socket.io'),
 parser  = require('body-parser'),
 app		= express(),
 server  = require('http').createServer( app ),
+port	= 8080, 
 io;
 
 playersController 	= controllers.playersController;
@@ -16,7 +17,7 @@ app.set( 'views', __dirname + '/views' );
 app.set( 'view options', { layout: false} );
 app.use( parser.urlencoded({ extended: true }) );
 
-server.listen(3000);
+server.listen(port);
 io = sio.listen( server );
 
 console.log('\x1b[93mCreating routes\x1b[39m');
