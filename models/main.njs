@@ -6,11 +6,13 @@ var mongoose 	= require('mongoose'), Models = {}, Player, Team;
 	Player	= require('./player.njs')(mongoose);
 	Team	= require('./team.njs')(mongoose);
 	Game	= require('./game.njs')(mongoose);
+	Action	= require('./action.njs')(mongoose);
 	
 var	Models = { 
 			Player: Player,
 			Team: 	Team,
-			Game: 	Game
+			Game: 	Game,
+			Action: Action
 		};
 
 	module.exports = Models;

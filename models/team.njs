@@ -6,7 +6,7 @@
  */
 module.exports = function(mongoose)
 {
-	var Schema = mongoose.Schema;
+	var Schema = mongoose.Schema, var Team;
 	/**
 	 * @var schema for the generated mongo document
 	 */
