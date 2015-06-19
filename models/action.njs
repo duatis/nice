@@ -6,7 +6,7 @@
  */
 module.exports = function(mongoose)
 {
-	var Schema = mongoose.Schema, var Action;
+	var Schema = mongoose.Schema, Action;
 
 	Action.types = {
 		SINGLE: 1,
