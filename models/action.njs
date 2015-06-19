@@ -8,11 +8,13 @@ module.exports = function(mongoose)
 {
 	var Schema = mongoose.Schema, Action;
 
-	Action.types = {
-		SINGLE: 1,
-		DUAL:   2,
-		TEAM: 	3,
-		GAME: 	4	
+	Action = {
+		types:{
+			SINGLE: 1,
+			DUAL:   2,
+			TEAM: 	3,
+			GAME: 	4
+		}	
 	};
 
 
