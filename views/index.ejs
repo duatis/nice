@@ -5,7 +5,7 @@
 	<title></title>
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/css/gumby.min.css">
 </head>
-<body class="row">
+<body>
 	
 	<div class="row">
 		<div class="six columns field">
@@ -52,6 +52,30 @@
 			<ul>
 				<% for( var i = 0; i < games.length; i++){ %>
 					<li><a href="/game/<%= games[i]._id %>"><%= games[i].name %> <%= games[i].date %></a></li>
+				<% } %>
+			</ul>
+		</div>
+		<div class="six columns field">
+			<h2>Action</h2>
+			<form action="/action" method="POST">
+				Name <br>
+				<input class="input" type="text" name="action[name]"><br><br>
+				Type<br>
+				<div class="picker" style="margin-bottom: -8px">
+					<select name="action" id="">
+						<option value="#" disabled>Action type</option>
+						<option value="1">Single</option>
+						<option value="2">Dual</option>
+						<option value="3">Team</option>
+						<option value="4">Game</option>
+					</select>
+				</div>
+				<br><br>
+				<div class="medium metro rounded primary btn"><button >save</button></div>
+			</form>
+			<ul>
+				<% for( var i = 0; i < actions.length; i++){ %>
+					<li><a href="/action/<%= actions[i]._id %>"><%= actions[i].name %></a></li>
 				<% } %>
 			</ul>
 		</div>

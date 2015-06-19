@@ -26,7 +26,9 @@ app.get('/', function( req, res, next)
 	playersController.index(function(error, players ){
 		teamsController.index( function(error, teams){
 			gamesController.index(function(error, games){
-    			res.render( 'index', { players: players, teams: teams, games: games });
+				actionsController.index( function(error, actions){
+    				res.render( 'index', { players: players, teams: teams, games: games, actions: actions });
+    			});
     		});
 		});
 	});
@@ -95,6 +97,20 @@ app.get('/client', function(req, res, next){
 	res.render('client');
 });
 
+
+app.get('/action/:object_id', function(req, res, next){
+		actionsController.find( req.params.object_id,function(error, action){
+			res.render('action', action );
+		} 
+	);
+});
+
+app.post('/action', function(req, res, next){
+	actionsController.save(req.body.action, function(error, action){
+		res.redirect('/action/' + action._id );
+	});
+});
+
 console.log('\x1b[92mCreating socket\x1b[39m');
 io.sockets.on( 'connection', function( socket ){
     playersController.index( {}, function(error, players){
@@ -102,6 +118,9 @@ io.sockets.on( 'connection', function( socket ){
     });
     
 } );
+
+
+
 
 process.stdin.on( 'data', function( data ){
     io.sockets.emit('in', data.toString() );

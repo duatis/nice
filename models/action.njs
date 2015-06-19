@@ -22,7 +22,8 @@ module.exports = function(mongoose)
 	 * @var schema for the generated mongo document
 	 */
 	 schema = new Schema({
-		name: String
+		name: String,
+		type: Number
 	});
 
 	 /**
