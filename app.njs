@@ -2,12 +2,12 @@ console.log('\x1b[31mStarting app\x1b[39m');
 var 
 controllers = require('./controllers'),
 express = require('express'),
-sio     = require('socket.io'),
+//sio     = require('socket.io'),
 parser  = require('body-parser'),
 app		= express(),
 server  = require('http').createServer( app ),
 port	= 8080, 
-io;
+io 		= require('./modules/sockets.njs');
 
 playersController 	= controllers.playersController;
 teamsController 	= controllers.teamsController;
@@ -18,7 +18,8 @@ app.set( 'view options', { layout: false} );
 app.use( parser.urlencoded({ extended: true }) );
 
 server.listen(port);
-io = sio.listen( server );
+io(server);
+//io = sio.listen( server );
 
 console.log('\x1b[93mCreating routes\x1b[39m');
 app.get('/', function( req, res, next)
@@ -36,7 +37,7 @@ app.get('/', function( req, res, next)
 
 app.post('/player', function(req, res, next){
 	playersController.save(req.body.player, function(error, player){
-		io.sockets.emit('newplayer', player );
+		//io.sockets.emit('newplayer', player );
 		res.render('player', player );
 	});
 });
@@ -66,7 +67,7 @@ app.get('/team/:object_id', function(req, res, next){
 
 app.post('/game', function(req, res, next){
 	gamesController.save(req.body.game, function(error, game){
-		res.render('game',  { game:game }  );
+		res.redirect('/game/' + game._id );
 	});
 });
 
@@ -111,7 +112,7 @@ app.post('/action', function(req, res, next){
 	});
 });
 
-console.log('\x1b[92mCreating socket\x1b[39m');
+/*console.log('\x1b[92mCreating socket\x1b[39m');
 io.sockets.on( 'connection', function( socket ){
     playersController.index( {}, function(error, players){
     	socket.emit('first_data', players );	
@@ -126,5 +127,5 @@ process.stdin.on( 'data', function( data ){
     io.sockets.emit('in', data.toString() );
 
 });
-
+*/
 console.log('\x1b[32mApp started\x1b[39m\u0007\u0007\u0007');

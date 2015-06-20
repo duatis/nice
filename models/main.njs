@@ -12,7 +12,7 @@ var mongoose 	= require('mongoose'), Models = {}, Player, Team, db;
 			break;
 	}
 	//mongoose.connect('mongodb://127.0.0.1/nice');
-	mongoose.connect('mongodb://uwye9w36pi2vf30:z950QJSyG4CVqrQiD6BN@bce6i5tjfgzyjgi.mongodb.clvrcld.net:27017/bce6i5tjfgzyjgi');
+	mongoose.connect(db);
 	console.log('\x1b[33mLoading Models\x1b[39m');
 	Player	= require('./player.njs')(mongoose);
 	Team	= require('./team.njs')(mongoose);

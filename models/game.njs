@@ -25,7 +25,7 @@ module.exports = function(mongoose)
 	 schema = new Schema({
 		name: String, 
 		date: Date,
-		teams: [],
+		teams: [{ type: Schema.Types.ObjectId, ref: 'Team' }],
 		actions: [Actions]
 	});
 

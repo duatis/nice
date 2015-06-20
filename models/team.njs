@@ -12,7 +12,7 @@ module.exports = function(mongoose)
 	 */
 	schema = new Schema({
 		name: String,
-		players: []
+		players: [{ type: Schema.Types.ObjectId, ref: 'Player' }]
 	});
 
 	/**

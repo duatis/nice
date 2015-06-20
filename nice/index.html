@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/css/gumby.min.css">
+	<script>
+		 var socket;
+		$(
+			function()
+			{
+				socket = io.connect('ws://debian8.local:8080/');
+
+				socket.on('first_data', function(data){
+					
+					for( var i in data )
+					{	
+						$('#buttons').append(createButton(data[i].name, data[i]._id));
+					}
+				});
+
+				socket.on('game', function(game){
+					$('#data').html('');
+					for(i in game.teams){
+						var team = game.teams[i];
+
+							var $div = $('<div>').addClass('six columns').attr('id', team._id), $h2 = $('<h2>').text(team.name);
+							$div.append($h2);
+							$div.append($('<ul>').addClass('players'));
+							$('#data').append($div);
+
+					}
+				});
+
+
+				socket.on('teams', function(teams){
+					for(i in teams )
+					{
+						var team = teams[i];
+
+						for(j in team.players){
+							var player = team.players[j], $li = $('<li>').text(player.number+': '+player.name);
+							$('#'+team._id+' .players').append($li);
+						}
+					}
+				});
+			}
+		);
+
+		function createButton(name, id){
+			var $a = $('<a>').text(name).attr('href','#'), $button = $('<div>').addClass('btn medium primary');
+
+			$a.on('click', function(ev){
+				ev.preventDefault();
+				socket.emit('connect_to', id);
+			});
+
+			$button.append($a);
+			return $button;
+		}
+	</script>
+</head>
+<body  class="row">
+	<div id="buttons"></div>
+	<div id="data" class="row">
+	</div>
+</body>
+</html>
