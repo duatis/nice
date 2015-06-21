@@ -13,9 +13,10 @@ module.exports = function(mongoose)
 	*/
 	Actions = new Schema({
 		time: Number,
-		action: ObjectId,
-		source: ObjectId,
-		destiny:ObjectId,
+		action: { type: Schema.Types.ObjectId, ref: 'Action' },
+		source:  { type: Schema.Types.ObjectId, ref: 'Player' },
+		destiny: { type: Schema.Types.ObjectId, ref: 'Player' },
+		team:  { type: Schema.Types.ObjectId, ref: 'Team' },
 		comment: String 	
 	}); 
 
@@ -31,6 +32,12 @@ module.exports = function(mongoose)
 
 	 schema.methods.addTeam = function( team_id, fn){
 			this.teams.push( mongoose.Types.ObjectId(team_id) );
+			this.save(fn);
+	}
+
+	 schema.methods.addAction = function( action, fn){
+	 	console.log(action);
+			this.actions.push( action );
 			this.save(fn);
 	}
 

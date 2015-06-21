@@ -19,7 +19,6 @@ app.use( parser.urlencoded({ extended: true }) );
 
 server.listen(port);
 io(server);
-//io = sio.listen( server );
 
 console.log('\x1b[93mCreating routes\x1b[39m');
 app.get('/', function( req, res, next)
@@ -37,7 +36,6 @@ app.get('/', function( req, res, next)
 
 app.post('/player', function(req, res, next){
 	playersController.save(req.body.player, function(error, player){
-		//io.sockets.emit('newplayer', player );
 		res.render('player', player );
 	});
 });
@@ -72,6 +70,7 @@ app.post('/game', function(req, res, next){
 });
 
 app.get('/game/:object_id', function(req, res, next){
+		gamesController.get(req.params.object_id);
 		gamesController.find( req.params.object_id,function(err, game_data){
 			teamsController.index( {_id: { $not: {$in: game_data.game.teams}}},function( err, teams_left){
 				game_data.all_teams = teams_left;
@@ -112,20 +111,20 @@ app.post('/action', function(req, res, next){
 	});
 });
 
-/*console.log('\x1b[92mCreating socket\x1b[39m');
-io.sockets.on( 'connection', function( socket ){
-    playersController.index( {}, function(error, players){
-    	socket.emit('first_data', players );	
-    });
-    
-} );
-
-
-
-
-process.stdin.on( 'data', function( data ){
-    io.sockets.emit('in', data.toString() );
-
+app.post('/game/:object_id/action', function( req, res, next){
+	gamesController.addAction(req.params.object_id, req.body.action, function(err, action){
+		console.log(err)
+	});
 });
-*/
+
+app.get('/game/:object_id/in_game',function( req, res, next ){
+	actionsController.index( function(err, actions){
+		gamesController.get(req.params.object_id, function( err, data ){
+			data.actions = actions;
+			res.render('in_game', data);
+		});
+	});
+});
+
+
 console.log('\x1b[32mApp started\x1b[39m\u0007\u0007\u0007');

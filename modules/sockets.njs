@@ -19,7 +19,6 @@ module.exports = function(server)
 	self.io.on('connection', function(socket){
 		 Models.Game.find(function(err, games){
 		 	socket.emit('first_data', games);
-
 		 	socket.on('connect_to', function(id){
 				Models.Game.findOne({_id: id}).populate('teams').exec( function(err, game){
 					socket.emit('game', game);

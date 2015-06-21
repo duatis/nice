@@ -14,7 +14,7 @@
 				socket = io.connect('ws://debian8.local:8080/');
 
 				socket.on('first_data', function(data){
-					
+					$('#buttons').html('');	
 					for( var i in data )
 					{	
 						$('#buttons').append(createButton(data[i].name, data[i]._id));

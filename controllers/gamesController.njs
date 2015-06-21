@@ -16,14 +16,16 @@ module.exports = function(Game, Team){
 	 */
 	self.find = function( object_id, fn )
 	{
-		Game.findOne( {_id: object_id}, function(err, game){
+		var promise =  Game.findOne( {_id: object_id}, function(err, game){
 			Team.find({_id:{$in: game.teams}}, function(err, teams){
 					if(err){
 						teams = [];
 					}
-					fn(err, {game: game, teams: teams})
+					if(fn)fn(err, {game: game, teams: teams})
 			});
 		});
+
+		return promise;
 	}
 
 	/**
@@ -52,12 +54,39 @@ module.exports = function(Game, Team){
 	}
 
 
+	/**
+	 * Pushes a team reference to teams array using model's addTeam function
+	 * @param game_id objectId 	the game to push the team on
+	 * @param team_id objectID	team to be pushed
+	 * @param fn function callback function
+	 * @return [description]
+	 */
 	self.addTeam = function( game_id, team_id, fn )
 	{
 		Game.findOne({_id: game_id}, function( err, game){
 			game.addTeam(team_id, fn);
 		});
 	}
+
+
+	/**
+	 * retrieves the full populated information about a game, including players, and teams
+	 */
+	 self.get = function(game_id, fn)
+	 {
+	 	Game.findOne({_id: game_id}).populate('teams').exec( function(err, game){
+	 		Team.populate(game.teams, {path:'players'}, function(err, players){
+	 			fn(err,{game: game, teams: game.teams});	
+	 		});
+	 	});
+	 }
+
+	 self.addAction = function(game_id, action, fn)
+	 {
+	 	Game.findOne({_id: game_id}, function( err, game){
+			game.addAction(action, fn);
+		});
+	 }
 
 	return self;
 }
