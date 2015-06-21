@@ -3,7 +3,7 @@
  * 
  * @param  Game Player mongoose Player model
  */
-module.exports = function(Game, Team, Action){
+module.exports = function(Game, Team, Action, Player){
 	var self = {};
 
 	/**
@@ -76,7 +76,9 @@ module.exports = function(Game, Team, Action){
 	 {
 	 	Game.findOne({_id: game_id}).populate('teams').exec( function(err, game){
 	 		Team.populate(game.teams, {path:'players'}, function(err, players){
-	 			if(fn)fn(err,{game: game, teams: game.teams});	
+	 			Action.populate(game.actions, [{path: 'destiny', model: 'Player'},{path: 'action', model:'Action'},{path: 'source', model: 'Player'}], function(err, actions){
+	 				if(fn)fn(err,{game: game, teams: game.teams, game_actions: actions});	
+	 			});
 	 		});
 	 	});
 	 }
@@ -87,7 +89,7 @@ module.exports = function(Game, Team, Action){
 	 		if(err)console.log(err);
 			game.addAction(action, function(err, action){
 
-				Action.populate(action, {path: 'source destiny type'}, fn);
+				Action.populate(action, [{path: 'destiny', model: 'Player'},{path: 'action', model:'Action'},{path: 'source', model: 'Player'}], fn);
 
 			});
 		});

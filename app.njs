@@ -113,7 +113,7 @@ app.post('/action', function(req, res, next){
 
 app.post('/game/:object_id/action', function( req, res, next){
 
-	if( '' == req.body.action.type ) return;
+	if( '' == req.body.action.action ) return;
 	if( '' == req.body.action.source) delete req.body.action.source;
 	if( '' == req.body.action.destiny ) delete req.body.action.destiny;
 	

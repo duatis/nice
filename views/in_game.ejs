@@ -7,9 +7,9 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<% console.log(teams[1].players.length) %>
 	<script>
-		function setType(object_id)
+		function setAction(object_id)
 		{
-			$('#type').val(object_id);
+			$('#action').val(object_id);
 		}
 		function setSource(object_id)
 		{
@@ -23,11 +23,28 @@
 		function saveAction(e, form)
 		{
 			e.preventDefault();
-			$.post($(form).attr('action'), $(form).serialize());
+			$.post($(form).attr('action'), $(form).serialize(), function(action)
+				{
+					$table = $('#actions');
+					$tr = $('<tr>')
+
+					$action = $('<td>');
+					$source= $('<td>');
+					$destiny = $('<td>');
+
+					if(action.action) $action.html(action.action.name);
+					if(action.source) $source.html(action.source.name);
+					if(action.destiny) $destiny.html(action.destiny.name);
+
+					$tr.append($action).append($source).append($destiny);
+					$table.append($tr);
+
+				});
 			return false;
 		}
 
 	</script>
+
 </head>
 <body>
 	<div class="row">
@@ -59,7 +76,7 @@
 				<% for( var i in actions ){ %>
 				<li>
 					<div class="small primary btn">
-					<button onclick="setType('<%= actions[i]._id %>')">
+					<button onclick="setAction('<%= actions[i]._id %>')">
 				  		<%= actions[i].name %>
 					</button>
 					</div>
@@ -67,7 +84,7 @@
 				<% } %>
 			</ul>
 			<form action="/game/<%= game._id %>/action" onSubmit="saveAction(event, this)">
-				action <input name="action[type]" id="type" placeholder="type"><br>
+				action <input name="action[action]" id="action" placeholder="action"><br>
 				source <input name="action[source]" id="source"  placeholder="source">
 						<div class="btn default small">
 							<button type="button"  onclick="setSource('')"><i class="icon-cancel"></i></button>
@@ -84,6 +101,23 @@
 							</div>
 						</div>
 			</form>
+			<h3>Actions</h3>
+			<table id="actions">
+				<thead>
+					<th>Action</th>
+					<th>Source</th>
+					<th>Destiny</th>
+				</thead>
+				<tbody>
+				<% for( var i = 0; i< game_actions.length; i++ ){ %>
+					<tr>
+						<td><% if( game_actions[i].action){ %> <%= game_actions[i].action.name  %> <% } %></td>
+						<td><% if( game_actions[i].source){ %> <%= game_actions[i].source.name  %> <% } %></td>
+						<td><% if( game_actions[i].destiny){ %> <%= game_actions[i].destiny.name  %> <% } %></td>
+					</tr>
+				<% } %>
+				</tbody>
+			</table>
 		</div>
 		<div class="three columns">
 			<h2><%=  teams[1].name %></h2>

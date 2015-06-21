@@ -13,9 +13,9 @@ module.exports = function(mongoose)
 	*/
 	Actions = new Schema({
 		time: Number,
-		action: { type: Schema.Types.ObjectId, ref: 'Action' },
-		source:  { type: Schema.Types.ObjectId, ref: 'Player' },
 		destiny: { type: Schema.Types.ObjectId, ref: 'Player' },
+		source:  { type: Schema.Types.ObjectId, ref: 'Player' },
+		action: { type: Schema.Types.ObjectId, ref: 'Action' },
 		team:  { type: Schema.Types.ObjectId, ref: 'Team' },
 		comment: String 	
 	}); 
