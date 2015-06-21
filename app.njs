@@ -7,7 +7,8 @@ parser  = require('body-parser'),
 app		= express(),
 server  = require('http').createServer( app ),
 port	= 8080, 
-io 		= require('./modules/sockets.njs');
+io 		= require('./modules/sockets.njs'),
+socket;
 
 playersController 	= controllers.playersController;
 teamsController 	= controllers.teamsController;
@@ -18,7 +19,7 @@ app.set( 'view options', { layout: false} );
 app.use( parser.urlencoded({ extended: true }) );
 
 server.listen(port);
-io(server);
+socket = io(server);
 
 console.log('\x1b[93mCreating routes\x1b[39m');
 app.get('/', function( req, res, next)
@@ -120,6 +121,8 @@ app.post('/game/:object_id/action', function( req, res, next){
 	gamesController.addAction(req.params.object_id, req.body.action, function(err, action){
 		if(err)console.log(err);
 		 res.setHeader('Content-Type', 'application/json');
+		 console.log(action);
+		 socket.io.sockets.emit( req.params.object_id ,  JSON.stringify( action, null, 3) );
     	 res.send(JSON.stringify( action, null, 3));
 	});
 });

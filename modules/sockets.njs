@@ -25,6 +25,11 @@ module.exports = function(server)
 					Models.Team.find({_id:{$in: game.teams}}).populate('players').exec( function(err, teams){
 						socket.emit('teams',teams);
 					});
+
+					Action.populate(game.actions,  [{path: 'destiny', model: 'Player'},{path: 'action', model:'Action'},{path: 'source', model: 'Player'}], function(err, actions){
+						socket.emit('actions', actions);
+					});
+
 				});
 			});
 

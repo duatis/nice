@@ -25,22 +25,27 @@
 			e.preventDefault();
 			$.post($(form).attr('action'), $(form).serialize(), function(action)
 				{
-					$table = $('#actions');
-					$tr = $('<tr>')
-
-					$action = $('<td>');
-					$source= $('<td>');
-					$destiny = $('<td>');
-
-					if(action.action) $action.html(action.action.name);
-					if(action.source) $source.html(action.source.name);
-					if(action.destiny) $destiny.html(action.destiny.name);
-
-					$tr.append($action).append($source).append($destiny);
-					$table.append($tr);
+					addAction(action);
 
 				});
 			return false;
+		}
+
+		function addAction(action)
+		{
+			$table = $('#actions');
+			$tr = $('<tr>')
+
+			$action = $('<td>');
+			$source= $('<td>');
+			$destiny = $('<td>');
+
+			if(action.action) $action.html(action.action.name);
+			if(action.source) $source.html(action.source.name);
+			if(action.destiny) $destiny.html(action.destiny.name);
+
+			$tr.append($action).append($source).append($destiny);
+			$table.append($tr);
 		}
 
 	</script>
