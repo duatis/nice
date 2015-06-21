@@ -1,4 +1,4 @@
-/**
+	/**
  * @brief Model for Team management
  * 
  * @param  mongoose Mongoose Reference to mongoose connection
@@ -36,9 +36,10 @@ module.exports = function(mongoose)
 	}
 
 	 schema.methods.addAction = function( action, fn){
-	 	console.log(action);
 			this.actions.push( action );
-			this.save(fn);
+			this.save(function(err, game){
+				fn(err,action);
+			});
 	}
 
 	 /**

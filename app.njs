@@ -112,8 +112,15 @@ app.post('/action', function(req, res, next){
 });
 
 app.post('/game/:object_id/action', function( req, res, next){
+
+	if( '' == req.body.action.type ) return;
+	if( '' == req.body.action.source) delete req.body.action.source;
+	if( '' == req.body.action.destiny ) delete req.body.action.destiny;
+	
 	gamesController.addAction(req.params.object_id, req.body.action, function(err, action){
-		console.log(err)
+		if(err)console.log(err);
+		 res.setHeader('Content-Type', 'application/json');
+    	 res.send(JSON.stringify( action, null, 3));
 	});
 });
 
