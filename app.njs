@@ -16,6 +16,7 @@ teamsController 	= controllers.teamsController;
 app.set( 'view engine', 'ejs' );
 app.set( 'views', __dirname + '/views' );
 app.set( 'view options', { layout: false} );
+app.use(express.static('public'));
 app.use( parser.urlencoded({ extended: true }) );
 
 server.listen(port);

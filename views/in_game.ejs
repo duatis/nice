@@ -5,19 +5,22 @@
 	<title>Action</title>
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/css/gumby.min.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<% console.log(teams[1].players.length) %>
+	<link href="/css/style.css" rel="stylesheet" type="text/css">
 	<script>
-		function setAction(object_id)
+		function setAction(id, name)
 		{
-			$('#action').val(object_id);
+			$('#action').val(id);
+			$('#action_name').html(name);
 		}
-		function setSource(object_id)
+		function setSource(id, name)
 		{
-			$('#source').val(object_id);
+			$('#source').val(id);
+			$('#source_name').html(name);
 		}
-		function setDestiny(object_id)
+		function setDestiny(id, name)
 		{
-			$('#destiny').val(object_id);
+			$('#destiny').val(id);
+			$('#destiny_name').html(name);
 		}
 
 		function saveAction(e, form)
@@ -67,10 +70,10 @@
 						<%= teams[0].players[j].number + ': ' + teams[0].players[j].name %> 
 						<br>
 						<div class="btn default small pill-left">
-							<button onclick="setSource('<%=  teams[0].players[j]._id %>')"><i class="icon-logout"></i></button>
+							<button onclick="setSource('<%=  teams[0].players[j]._id %>','<%=  teams[0].players[j].name %>')"><i class="icon-logout"></i></button>
 						</div>
 						<div class="btn default small pill-right">
-							<button  onclick="setDestiny('<%=  teams[0].players[j]._id %>')"><i class="icon-login"></i></button>
+							<button  onclick="setDestiny('<%=  teams[0].players[j]._id %>','<%=  teams[0].players[j].name %>')"><i class="icon-login"></i></button>
 						</div>
 					</li>
 				<% } %>
@@ -81,7 +84,7 @@
 				<% for( var i in actions ){ %>
 				<li>
 					<div class="small primary btn">
-					<button onclick="setAction('<%= actions[i]._id %>')">
+					<button onclick="setAction('<%= actions[i]._id %>', '<%= actions[i].name %>')">
 				  		<%= actions[i].name %>
 					</button>
 					</div>
@@ -89,17 +92,27 @@
 				<% } %>
 			</ul>
 			<form action="/game/<%= game._id %>/action" onSubmit="saveAction(event, this)">
-				action <input name="action[action]" id="action" placeholder="action"><br>
-				source <input name="action[source]" id="source"  placeholder="source">
-						<div class="btn default small">
-							<button type="button"  onclick="setSource('')"><i class="icon-cancel"></i></button>
-						</div>
-				<br>
-				destiny <input name="action[destiny]" id="destiny"  placeholder="destiny">
-						<div class="btn default small">
-							<button type="button"  onclick="setDestiny('')"><i class="icon-cancel"></i></button>
-						</div>
-						<br><br>
+				<div>
+					<strong>action:</strong> <span id="action_name"></span><br>
+					<div class="btn warning oval default small">
+						<button type="button"  onclick="setAction('','')"><i class="icon-cancel"></i></button>
+					</div>
+					<input name="action[action]" type="hidden" id="action" placeholder="action">
+				</div>
+				<div>
+					<strong>source:</strong>  <span id="source_name"></span><br>
+					<div class="btn warning oval default small">
+						<button type="button"  onclick="setSource('','')"><i class="icon-cancel"></i></button>
+					</div>
+					<input name="action[source]" type="hidden" id="source"  placeholder="source">
+				</div>
+				<div>
+					<strong>destiny:</strong> <span id="destiny_name"></span><br>
+					<div class="btn warning oval default small">
+						<button type="button"  onclick="setDestiny('','')"><i class="icon-cancel"></i></button>
+					</div>
+					<input name="action[destiny]" type="hidden" id="destiny"  placeholder="destiny">
+				</div>	
 						<div>
 							<div class="btn primary medium">
 								<button>Add</button>
@@ -133,10 +146,10 @@
 						<%= teams[1].players[j].number + ': ' + teams[1].players[j].name %>
 						<br>
 						<div class="btn default small pill-left">
-							<button onclick="setSource('<%=  teams[1].players[j]._id %>')"><i class="icon-logout"></i></button>
+							<button onclick="setSource('<%=  teams[1].players[j]._id %>','<%=  teams[1].players[j].name %>')"><i class="icon-logout"></i></button>
 						</div>
 						<div class="btn default small pill-right">
-							<button  onclick="setDestiny('<%=  teams[1].players[j]._id %>')"><i class="icon-login"></i></button>
+							<button  onclick="setDestiny('<%=  teams[1].players[j]._id %>','<%=  teams[1].players[j].name %>')"><i class="icon-login"></i></button>
 						</div>
 					</li>
 				<% } %>
