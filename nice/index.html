@@ -11,7 +11,7 @@
 		$(
 			function()
 			{
-				socket = io.connect('ws://nice.cleverapps.io/');
+				socket = io.connect('ws://nice.cleverapps.io');
 
 				socket.on('first_data', function(data){
 					$('#buttons').html('');	
@@ -24,7 +24,7 @@
 				socket.on('game', function(game){
 					$('#data').html('');
 					for(i in game.teams){
-						var team = game.teams[i];
+ 						var team = game.teams[i];
 
 							var $div = $('<div>').addClass('six columns').attr('id', team._id), $h2 = $('<h2>').text(team.name);
 							$div.append($h2);
