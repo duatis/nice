@@ -2,6 +2,7 @@ console.log('\x1b[31mStarting app\x1b[39m');
 var 
 controllers = require('./controllers'),
 express = require('express'),
+cors 	= require('cors'),
 //sio     = require('socket.io'),
 parser  = require('body-parser'),
 app		= express(),
@@ -18,6 +19,7 @@ app.set( 'views', __dirname + '/views' );
 app.set( 'view options', { layout: false} );
 app.use(express.static('public'));
 app.use( parser.urlencoded({ extended: true }) );
+app.use(cors());
 
 server.listen(port);
 socket = io(server);
