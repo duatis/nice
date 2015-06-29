@@ -17,6 +17,7 @@ module.exports = function(server)
 	 * Send available games
 	 */
 	self.io.on('connection', function(socket){
+		console.log('connection 0.9.16');
 		 Models.Game.find(function(err, games){
 		 	socket.emit('first_data', games);
 		 	socket.on('connect_to', function(id){
