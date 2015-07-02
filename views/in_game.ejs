@@ -3,8 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Action</title>
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/css/gumby.min.css">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://bootswatch.com/slate/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<link href="/css/style.css" rel="stylesheet" type="text/css">
 	<script>
 		function setAction(id, name)
@@ -55,110 +56,127 @@
 
 </head>
 <body>
-	<div class="row">
-		<div class="centered six columns">
-			<h1><%= game.name %></h1>
-			
+	<div class="container">
+		<div class="row">
+			<div class="centered six columns">
+				<h1><%= game.name %></h1>
+				
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="three columns">
-			<h2><%=  teams[0].name %></h2>
-			<ul>
-				<% for( var j = 0; j < teams[0].players.length; j++ ){ %>
-					<li>
-						<%= teams[0].players[j].number + ': ' + teams[0].players[j].name %> 
-						<br>
-						<div class="btn default small pill-left">
-							<button onclick="setSource('<%=  teams[0].players[j]._id %>','<%=  teams[0].players[j].name %>')"><i class="icon-logout"></i></button>
-						</div>
-						<div class="btn default small pill-right">
-							<button  onclick="setDestiny('<%=  teams[0].players[j]._id %>','<%=  teams[0].players[j].name %>')"><i class="icon-login"></i></button>
-						</div>
-					</li>
-				<% } %>
-			</ul>
-		</div>
-		<div class="six columns">
-			<ul class="t_up tiles">
-				<% for( var i in actions ){ %>
-				<li>
-					<div class="small primary btn">
-					<button onclick="setAction('<%= actions[i]._id %>', '<%= actions[i].name %>')">
-				  		<%= actions[i].name %>
-					</button>
-					</div>
-				</li>
-				<% } %>
-			</ul>
-			<form action="/game/<%= game._id %>/action" onSubmit="saveAction(event, this)">
-				<div>
-					<strong>action:</strong> <span id="action_name"></span><br>
-					<div class="btn warning oval default small">
-						<button type="button"  onclick="setAction('','')"><i class="icon-cancel"></i></button>
-					</div>
-					<input name="action[action]" type="hidden" id="action" placeholder="action">
-				</div>
-				<div>
-					<strong>source:</strong>  <span id="source_name"></span><br>
-					<div class="btn warning oval default small">
-						<button type="button"  onclick="setSource('','')"><i class="icon-cancel"></i></button>
-					</div>
-					<input name="action[source]" type="hidden" id="source"  placeholder="source">
-				</div>
-				<div>
-					<strong>destiny:</strong> <span id="destiny_name"></span><br>
-					<div class="btn warning oval default small">
-						<button type="button"  onclick="setDestiny('','')"><i class="icon-cancel"></i></button>
-					</div>
-					<input name="action[destiny]" type="hidden" id="destiny"  placeholder="destiny">
-				</div>	
-						<div>
-							<div class="btn primary medium">
-								<button>Add</button>
+		<div class="row">
+			<div class="col-md-2">
+				<h2><%=  teams[0].name %></h2>
+				<ul     class="nav nav-pills nav-stacked">
+					<% for( var j = 0; j < teams[0].players.length; j++ ){ %>
+						<li>
+							<%= teams[0].players[j].number + ': ' + teams[0].players[j].name %> 
+							<br>
+							<div class="btn-group">
+								<a class="btn btn-info" onclick="setSource('<%=  teams[0].players[j]._id %>','<%=  teams[0].players[j].name %>')"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></i></a>
+								<a class="btn btn-info" onclick="setDestiny('<%=  teams[0].players[j]._id %>','<%=  teams[0].players[j].name %>')"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
 							</div>
-						</div>
-			</form>
-			<h3>Actions</h3>
-			<table id="actions">
-				<thead>
-					<th>Action</th>
-					<th>Source</th>
-					<th>Destiny</th>
-				</thead>
-				<tbody>
-				<% for( var i = 0; i< game_actions.length; i++ ){ %>
-					<tr>
-						<td><% if( game_actions[i].action){ %> <%= game_actions[i].action.name  %> <% } %></td>
-						<td><% if( game_actions[i].source){ %> <%= game_actions[i].source.name  %> <% } %></td>
-						<td><% if( game_actions[i].destiny){ %> <%= game_actions[i].destiny.name  %> <% } %></td>
-					</tr>
-				<% } %>
-				</tbody>
-			</table>
+						</li>
+					<% } %>
+				</ul>
+			</div>
+			<div class="col-md-8">
+				<div class="btn-group" role="group" aria-label="...">
+					<% for( var i in actions ){ %>
+						<button class="btn btn-info btn-sm" onclick="setAction('<%= actions[i]._id %>', '<%= actions[i].name %>')">
+					  		<%= actions[i].name %>
+						</button>
+					<% } %>
+				</div>
+				<form action="/game/<%= game._id %>/action" onSubmit="saveAction(event, this)" style="margin-top: 30px">
+						
+
+
+					<div class="panel panel-success">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Action</h3>
+					  </div>
+					  <div class="panel-body">
+							<button type="button"  class="btn btn-danger btn-xs" onclick="setAction('','')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+					    <span id="action_name"></span><br>
+						<input name="action[action]" type="hidden" id="action" placeholder="action">
+					  </div>
+					</div>
+
+
+					<div class="panel panel-warning">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Source Player/Team</h3>
+					  </div>
+					  <div class="panel-body">
+							<button type="button"   class="btn btn-danger btn-xs"  onclick="setSource('','')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+					    <span id="source_name"></span><br>
+						<input name="action[source]" type="hidden" id="source"  placeholder="source">
+					  </div>
+					</div>
+
+
+
+					<div class="panel panel-danger">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Destination Player</h3>
+					  </div>
+					  <div class="panel-body">
+							<button type="button"   class="btn btn-danger btn-xs"  onclick="setDestiny('','')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+					     	<span id="destiny_name"></span><br>
+						<input name="action[destiny]" type="hidden" id="destiny"  placeholder="destiny">
+					  </div>
+					</div>
+	
+
+				
+							<div>
+									<button class="btn btn-primary btn-block">Add</button>
+							</div>
+				</form>
+				
+			</div>
+			<div class="col-md-2">
+				<h2><%=  teams[1].name %></h2>
+					<ul   class="nav nav-pills nav-stacked">
+					<% for( var j = 0; j < teams[1].players.length; j++ ){ %>
+						<li>
+							<%= teams[1].players[j].number + ': ' + teams[1].players[j].name %>
+							<br>
+							<div class="btn-group">
+								<a  class="btn btn-info" onclick="setSource('<%=  teams[1].players[j]._id %>','<%=  teams[1].players[j].name %>')"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></i></a>
+								<a class="btn btn-info"   onclick="setDestiny('<%=  teams[1].players[j]._id %>','<%=  teams[1].players[j].name %>')"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
+							</div>
+						</li>
+					<% } %>
+				</ul>
+			</div>
 		</div>
-		<div class="three columns">
-			<h2><%=  teams[1].name %></h2>
-			<ul>
-				<ul>
-				<% for( var j = 0; j < teams[1].players.length; j++ ){ %>
-					<li>
-						<%= teams[1].players[j].number + ': ' + teams[1].players[j].name %>
-						<br>
-						<div class="btn default small pill-left">
-							<button onclick="setSource('<%=  teams[1].players[j]._id %>','<%=  teams[1].players[j].name %>')"><i class="icon-logout"></i></button>
-						</div>
-						<div class="btn default small pill-right">
-							<button  onclick="setDestiny('<%=  teams[1].players[j]._id %>','<%=  teams[1].players[j].name %>')"><i class="icon-login"></i></button>
-						</div>
-					</li>
-				<% } %>
-			</ul>
-			</ul>
+		<div class="row">
+			<div class="col-md-12">
+				
+				<h3>Actions</h3>
+				<table  class="table table-striped" id="actions">
+					<thead>
+						<th>Action</th>
+						<th>Source</th>
+						<th>Destiny</th>
+					</thead>
+					<tbody>
+					<% for( var i = 0; i< game_actions.length; i++ ){ %>
+						<tr>
+							<td><% if( game_actions[i].action){ %> <%= game_actions[i].action.name  %> <% } %></td>
+							<td><% if( game_actions[i].source){ %> <%= game_actions[i].source.name  %> <% } %></td>
+							<td><% if( game_actions[i].destiny){ %> <%= game_actions[i].destiny.name  %> <% } %></td>
+						</tr>
+					<% } %>
+					</tbody>
+				</table>
+
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="small default btn icon-right entypo icon-home"><a href="/"> Home</a></div>
+		<div class="row">
+			<div class="small default btn icon-right entypo icon-home"><a href="/"> Home</a></div>
+		</div>
 	</div>
 </body>
 </html>
