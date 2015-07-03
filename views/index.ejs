@@ -3,85 +3,88 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/css/gumby.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://bootswatch.com/slate/bootstrap.min.css">
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 	<link href="/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	
-	<div class="row">
-		<div class="six columns field">
-			<h2>Player</h2>
-			<form action="/player" method="POST">
-				Name <br>
-				<input class="input" type="text" name="player[name]"><br><br>
-				Number <br>
-				<input class="input" type="text" name="player[number]"><br><br>
-				<div class="medium metro rounded primary btn"><button >save</button></div>
-			</form>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Player</h2>
+				<form action="/player" method="POST">
+					Name <br>
+					<input class="input" type="text" name="player[name]"><br><br>
+					Number <br>
+					<input class="input" type="text" name="player[number]"><br><br>
+					<button class="btn btn-primary">save</button>
+				</form>
+				
+				<ul class="nav nav-pills">
+					<% for( var i = 0; i < players.length; i++){ %>
+						<li role="presentation"><a href="/player/<%= players[i]._id %>"><%= players[i].number %>: <%= players[i].name %></a></li>
+					<% } %>
+				</ul>
+			</div>
+			<div class="col-md-6">
+				<h2>Team</h2>
+				<form action="/team" method="POST">
+					Name <br>
+					<input class="input" type="text" name="team[name]"><br><br>
+					<button class="btn btn-primary">save</button>
+				</form>
+				<ul class="nav nav-pills">
+					<% for( var i = 0; i < teams.length; i++){ %>
+						<li role="presentation"><a href="/team/<%= teams[i]._id %>"><%= teams[i].name %></a></li>
+					<% } %>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Game</h2>
+				<form action="/game" method="POST">
+					Name <br>
+					<input class="input" type="text" name="game[name]"><br><br>
+					Date<br>
+					<input class="input" type="text" name="game[date]" placeholder="YYYY-MM-DD"><br><br>
 			
-			<ul>
-				<% for( var i = 0; i < players.length; i++){ %>
-					<li><a href="/player/<%= players[i]._id %>"><%= players[i].number %>: <%= players[i].name %></a></li>
-				<% } %>
-			</ul>
-		</div>
-		<div class="six columns field">
-			<h2>Team</h2>
-			<form action="/team" method="POST">
-				Name <br>
-				<input class="input" type="text" name="team[name]"><br><br>
-				<div class="medium metro rounded primary btn"><button >save</button></div>
-			</form>
-			<ul>
-				<% for( var i = 0; i < teams.length; i++){ %>
-					<li><a href="/team/<%= teams[i]._id %>"><%= teams[i].name %></a></li>
-				<% } %>
-			</ul>
-		</div>
-	</div>
-	<div class="row">
-		<div class="six columns field">
-			<h2>Game</h2>
-			<form action="/game" method="POST">
-				Name <br>
-				<input class="input" type="text" name="game[name]"><br><br>
-				Date<br>
-				<input class="input" type="text" name="game[date]" placeholder="YYYY-MM-DD"><br><br>
-		
-				<div class="medium metro rounded primary btn"><button >save</button></div>
-			</form>
-			<ul>
-				<% for( var i = 0; i < games.length; i++){ %>
-					<li>
-						<a href="/game/<%= games[i]._id %>"><%= games[i].name %> <%= games[i].date %></a>
-						<a href="/game/<%= games[i]._id %>/in_game"><i class="icon-signal"></i></a>
-					</li>
-				<% } %>
-			</ul>
-		</div>
-		<div class="six columns field">
-			<h2>Action</h2>
-			<form action="/action" method="POST">
-				Name <br>
-				<input class="input" type="text" name="action[name]"><br><br>
-				Type<br>
-				<div class="picker" style="margin-bottom: -8px">
-					<select name="action" id="">
-						<option value="#" disabled>Action type</option>
-						<option value="1">Single</option>
-						<option value="2">Dual</option>
-						<option value="3">Team</option>
-						<option value="4">Game</option>
-					</select>
-				</div>
-				<br><br>
-				<div class="medium metro rounded primary btn"><button >save</button></div>
-			</form>
-			<ul>
-				<% for( var i = 0; i < actions.length; i++){ %>
-					<li><a href="/action/<%= actions[i]._id %>"><%= actions[i].name %></a></li>
-				<% } %>
-			</ul>
+					<button class="btn btn-primary">save</button>
+				</form>
+				<ul class="nav nav-pills">
+					<% for( var i = 0; i < games.length; i++){ %>
+						<li role="presentation">
+							<a href="/game/<%= games[i]._id %>/in_game"><%= games[i].name %> <%= games[i].date %></a>
+							<!--a href="/game/<%= games[i]._id %>/in_game"><i class="icon-signal"></i></a-->
+						</li>
+					<% } %>
+				</ul>
+			</div>
+			<div class="col-md-6">
+				<h2>Action</h2>
+				<form action="/action" method="POST">
+					Name <br>
+					<input class="input" type="text" name="action[name]"><br><br>
+					Type<br>
+					<div class="picker" style="margin-bottom: -8px">
+						<select name="action" id="">
+							<option value="#" disabled>Action type</option>
+							<option value="1">Single</option>
+							<option value="2">Dual</option>
+							<option value="3">Team</option>
+							<option value="4">Game</option>
+						</select>
+					</div>
+					<br><br>
+					<button class="btn btn-primary">save</button>
+				</form>
+				<ul class="nav nav-pills">
+					<% for( var i = 0; i < actions.length; i++){ %>
+						<li role="presentation"><a href="/action/<%= actions[i]._id %>"><%= actions[i].name %></a></li>
+					<% } %>
+				</ul>
+			</div>
 		</div>
 	</div>
 </body>
