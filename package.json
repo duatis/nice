@@ -13,6 +13,6 @@
 	},
 	"main": "app.njs",
 	"scripts":{
-		"start":"app.njs"
+		"start":"node app.njs"
 	}
 }
