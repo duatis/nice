@@ -1,11 +1,11 @@
 # nice
-**Nice** atemps to be an API for Sporting Events management.
+**Nice** atempts to be an API for Sporting Events management.
 
 ##Install
 
 1. Make sure you have installed the last version of node.js, you can learn how to intall node.js in any system from https://nodejs.org/.
 
-2. After installing node.js, if you don't haven't, install mongodb. See the documentation from mongo's official page http://docs.mongodb.org/manual/.
+2. After installing node.js, if you don't haven it, install mongodb. See the documentation from mongo's official page http://docs.mongodb.org/manual/.
 
 3. Git clone **nice** repository to your system. Asuming you have git installed, otherwise install git first.
 >$> *git clone https://github.com/duatis/nice.git*
