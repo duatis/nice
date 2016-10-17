@@ -5,7 +5,7 @@ var mongoose 	= require('mongoose'), Models = {}, Player, Team, db;
 	switch( process.env.ENV ){
 		case 'develop':
 		default:
-				db = 'mongodb://127.0.0.1/nice';
+				db = 'mongodb://duatis:lalilulelo@ds027519.mlab.com:27519/cyanide';
 			break;
 		case 'production':
 				db = 'mongodb://duatis:lalilulelo@ds027519.mlab.com:27519/cyanide';
