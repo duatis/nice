@@ -8,7 +8,7 @@ var mongoose 	= require('mongoose'), Models = {}, Player, Team, db;
 				db = 'mongodb://127.0.0.1/nice';
 			break;
 		case 'production':
-				db = 'mongodb://uwye9w36pi2vf30:z950QJSyG4CVqrQiD6BN@bce6i5tjfgzyjgi.mongodb.clvrcld.net:27017/bce6i5tjfgzyjgi';
+				db = 'mongodb://duatis:lalilulelo@ds027519.mlab.com:27519/cyanide';
 			break;
 	}
 	//mongoose.connect('mongodb://127.0.0.1/nice');
