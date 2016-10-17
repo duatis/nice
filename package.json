@@ -11,5 +11,8 @@
 		"body-parser": "1.13.0",
 		"cors":"2.7.1"
 	},
-	"main": "app.njs"
+	"main": "app.njs",
+	"scripts":{
+		"start":"app.njs"
+	}
 }
