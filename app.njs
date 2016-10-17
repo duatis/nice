@@ -7,7 +7,7 @@ cors 	= require('cors'),
 parser  = require('body-parser'),
 app		= express(),
 server  = require('http').createServer( app ),
-port	= 8080, 
+port	= process.env.PORT || 8080, 
 io 		= require('./modules/sockets.njs'),
 socket;
 
